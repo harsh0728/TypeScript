@@ -14,6 +14,14 @@ type Calculator_Error={
     message:string
 }
 
+interface CalculationHistory {
+    operations:Result[],
+    totalOperations:number,
+    lastCalculation?:Result
+}
+let ResultHistory:CalculationHistory={operations:[],totalOperations:0,lastCalculation:undefined};
+
+
 function add(x:number,y:number){ return x + y }
 function subtract(x:number,y:number){ return x - y }
 function multiply(x:number,y:number){ return x * y }
@@ -51,7 +59,9 @@ function Calculate(operation:Operation):Result | Calculator_Error{
                     message:'Invalid Operator'
                 }
         }
-
+        ResultHistory.operations.push({ operation, result });
+        ResultHistory.totalOperations+=1;
+        ResultHistory.lastCalculation={ operation, result };
         return { operation, result };
 
     } catch(error: any) {
@@ -66,3 +76,5 @@ console.log(Calculate({operator:'%', a:100, b:5}));
 console.log(Calculate({operator:'**', a:100, b:5}));
 console.log(Calculate({operator:'/', a:100, b:5}));
 console.log(Calculate({operator:'/', a:100, b:0}));
+console.log("\n--- HISTORY ---");
+console.dir(ResultHistory, { depth: null });

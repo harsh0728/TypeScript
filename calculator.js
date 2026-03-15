@@ -1,3 +1,4 @@
+var ResultHistory = { operations: [], totalOperations: 0, lastCalculation: undefined };
 function add(x, y) { return x + y; }
 function subtract(x, y) { return x - y; }
 function multiply(x, y) { return x * y; }
@@ -45,6 +46,9 @@ function Calculate(operation) {
                     message: 'Invalid Operator'
                 };
         }
+        ResultHistory.operations.push({ operation: operation, result: result });
+        ResultHistory.totalOperations += 1;
+        ResultHistory.lastCalculation = { operation: operation, result: result };
         return { operation: operation, result: result };
     }
     catch (error) {
@@ -58,3 +62,5 @@ console.log(Calculate({ operator: '%', a: 100, b: 5 }));
 console.log(Calculate({ operator: '**', a: 100, b: 5 }));
 console.log(Calculate({ operator: '/', a: 100, b: 5 }));
 console.log(Calculate({ operator: '/', a: 100, b: 0 }));
+console.log("\n--- HISTORY ---");
+console.dir(ResultHistory, { depth: null });
