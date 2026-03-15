@@ -1,5 +1,5 @@
 interface Operation{
-    operator:'+' | '-' | '*' | '/';
+    operator:'+' | '-' | '*' | '/' | '%' | '**';
     a:number,
     b:number
 }
@@ -17,6 +17,12 @@ type Calculator_Error={
 function add(x:number,y:number){ return x + y }
 function subtract(x:number,y:number){ return x - y }
 function multiply(x:number,y:number){ return x * y }
+function modulo(x:number,y:number){ return x % y }
+function power(x:number,y:number){ 
+    let result:number=1;
+    for (let i=0;i<y;i++) result*=x;
+    return result;
+ }
 
 function divide(x:number,y:number):number {
     if (y === 0){
@@ -36,6 +42,8 @@ function Calculate(operation:Operation):Result | Calculator_Error{
             case '+': result = add(operation.a, operation.b); break;
             case '-': result = subtract(operation.a, operation.b); break;
             case '*': result = multiply(operation.a, operation.b); break;
+            case '%': result = modulo(operation.a, operation.b); break;
+            case '**': result = power(operation.a, operation.b); break;
             case '/': result = divide(operation.a, operation.b); break;
             default:
                 return {
@@ -54,5 +62,7 @@ function Calculate(operation:Operation):Result | Calculator_Error{
 console.log(Calculate({operator:'+', a:100, b:5}));
 console.log(Calculate({operator:'-', a:100, b:5}));
 console.log(Calculate({operator:'*', a:100, b:5}));
+console.log(Calculate({operator:'%', a:100, b:5}));
+console.log(Calculate({operator:'**', a:100, b:5}));
 console.log(Calculate({operator:'/', a:100, b:5}));
 console.log(Calculate({operator:'/', a:100, b:0}));

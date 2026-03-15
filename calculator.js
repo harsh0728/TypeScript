@@ -1,6 +1,13 @@
 function add(x, y) { return x + y; }
 function subtract(x, y) { return x - y; }
 function multiply(x, y) { return x * y; }
+function modulo(x, y) { return x % y; }
+function power(x, y) {
+    var result = 1;
+    for (var i = 0; i < y; i++)
+        result *= x;
+    return result;
+}
 function divide(x, y) {
     if (y === 0) {
         throw {
@@ -23,6 +30,12 @@ function Calculate(operation) {
             case '*':
                 result = multiply(operation.a, operation.b);
                 break;
+            case '%':
+                result = modulo(operation.a, operation.b);
+                break;
+            case '**':
+                result = power(operation.a, operation.b);
+                break;
             case '/':
                 result = divide(operation.a, operation.b);
                 break;
@@ -41,5 +54,7 @@ function Calculate(operation) {
 console.log(Calculate({ operator: '+', a: 100, b: 5 }));
 console.log(Calculate({ operator: '-', a: 100, b: 5 }));
 console.log(Calculate({ operator: '*', a: 100, b: 5 }));
+console.log(Calculate({ operator: '%', a: 100, b: 5 }));
+console.log(Calculate({ operator: '**', a: 100, b: 5 }));
 console.log(Calculate({ operator: '/', a: 100, b: 5 }));
 console.log(Calculate({ operator: '/', a: 100, b: 0 }));
