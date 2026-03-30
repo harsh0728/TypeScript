@@ -36,6 +36,12 @@ export default function TodoItem({ todo, toggleTodo, removeTodo, editTodo }: Pro
         </span>
       )}
 
+      {/* Bonus: display category */}
+      {todo.category && <span className="tag">{todo.category}</span>}
+
+      {/* Bonus: display due date */}
+      {todo.dueDate && <small className="due">Due: {todo.dueDate}</small>}
+
       <button onClick={handleEdit} style={styles.btn}>
         {editing ? "Save" : "Edit"}
       </button>
